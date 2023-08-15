@@ -2,6 +2,7 @@
 import enums.Education;
 import enums.Sex;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,8 +30,9 @@ public class WorkWithPerson {
      */
     public List<Person> getWorkablePersons(){
         return people.stream().filter(x-> x.getEducation().equals(Education.HIGHER))
-                .filter(x -> (x.getSex().equals(Sex.MAN) && x.getAge() > 18 && x.getAge() < 65)
-                        || (x.getSex().equals(Sex.WOMAN) && x.getAge() > 18 && x.getAge() < 60)).sorted(new FamilyComparator())
+                .filter(x -> x.getAge() >= 18)
+                .filter(x -> (x.getSex() == Sex.MAN ? x.getAge() < 65 : x.getAge() < 60))
+                .sorted(Comparator.comparing(Person::getFamily))
                 .collect(Collectors.toList());
     }
 }
