@@ -1,17 +1,15 @@
 import enums.Education;
 import enums.Sex;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.hamcrest.MatcherAssert.*;
 
-public class MethodsForPersonTest {
+public class MethodsForPersonHamcrestTest {
     static List<Person> persons = new ArrayList<>();
     static MethodsForPerson methods;
     @BeforeAll
@@ -30,20 +28,19 @@ public class MethodsForPersonTest {
         persons.add(new Person("Eren","Yager",67, Sex.MAN, Education.HIGHER));
         methods = new MethodsForPerson(persons);
     }
-//JUnit tests
     @Test
     void getTeenagersCountTest(){
-        Assertions.assertEquals(3L,methods.getTeenagers());
+        assertThat(3L, equalTo(methods.getTeenagers()));
     }
     @Test
     void getConscriptsCountTest(){
-        Assertions.assertEquals(4, methods.getConscripts().size());
+        assertThat(methods.getConscripts(), hasSize(4));
     }
     @Test
     void getWorkableCountPersons(){
-        Assertions.assertEquals(5,methods.getWorkablePersons().size());
+        assertThat(methods.getWorkablePersons(), hasSize(5));
     }
-    //Hamcrest tests
+//New tests
     @Test
     void getWorkablePersons(){
         assertThat(methods.getWorkablePersons(),
