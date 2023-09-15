@@ -4,8 +4,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.hamcrest.Matchers.*;
+import static org.hamcrest.MatcherAssert.*;
 
 public class MethodsForPersonTest {
     static List<Person> persons = new ArrayList<>();
@@ -26,17 +30,27 @@ public class MethodsForPersonTest {
         persons.add(new Person("Eren","Yager",67, Sex.MAN, Education.HIGHER));
         methods = new MethodsForPerson(persons);
     }
-
+//JUnit tests
     @Test
-    void getTeenagersTest(){
+    void getTeenagersCountTest(){
         Assertions.assertEquals(3L,methods.getTeenagers());
     }
     @Test
-    void getConscriptsTest(){
-        Assertions.assertEquals(4,methods.getConscripts().size());
+    void getConscriptsCountTest(){
+        Assertions.assertEquals(4, methods.getConscripts().size());
     }
     @Test
-    void getWorkablePersons(){
+    void getWorkableCountPersons(){
         Assertions.assertEquals(5,methods.getWorkablePersons().size());
+    }
+    //Hamcrest tests
+    @Test
+    void getWorkablePersons(){
+        assertThat(methods.getWorkablePersons(),
+                not(containsInAnyOrder(new Person("Eren","Yager",67, Sex.MAN, Education.HIGHER))));
+    }
+    @Test
+    void getConscriptsTest(){
+        assertThat(methods.getConscripts(), hasItem("Klimov"));
     }
 }
