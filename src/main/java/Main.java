@@ -1,8 +1,3 @@
-import enums.Education;
-import enums.Sex;
-
-import java.util.*;
-
 public class Main {
     public static void main(String[] args) {
         WorkWithPerson workWithPerson = new WorkWithPerson();
